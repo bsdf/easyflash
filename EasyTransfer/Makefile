@@ -53,7 +53,7 @@ ifeq ($(win32), yes)
 else
 	LIBDIR        := /usr/local/lib
 	# Link to static wx
-	WXCONFIGLIBS  := $(shell wx-config --static --libs)
+	WXCONFIGLIBS  := $(shell wx-config --libs)
 	# Link to static dependencies, too
 	WXCONFIGLIBS  := $(WXCONFIGLIBS:-lpng=$(LIBDIR)/libpng.a)
 	WXCONFIGLIBS  := $(WXCONFIGLIBS:-ljpeg=$(LIBDIR)/libjpeg.a)
@@ -63,9 +63,9 @@ else
     cxx           := c++
     cc            := gcc
     outbase       := $(top_dir)/out
-    cxxflags      += $(shell wx-config --static --cxxflags)
-    cxxlibs       += $(LIBDIR)/libftdi.a $(LIBDIR)/libusb.a $(LIBDIR)/libusb-1.0.a $(WXCONFIGLIBS) -lpthread
-    clibs         += $(LIBDIR)/libftdi.a $(LIBDIR)/libusb.a $(LIBDIR)/libusb-1.0.a -framework IOKit -framework CoreFoundation
+    cxxflags      += $(shell wx-config --cxxflags)
+    cxxlibs       += $(WXCONFIGLIBS) -lpthread -lftdi
+    clibs         += -lftdi
     archive_fmt   := tar.bz2
     icon_resize   :=
 
